@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Serif+Caption&family=Roboto+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/weather-styles.css" />
+    <link rel="stylesheet" href="styles/swiper.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+  </head>
+  <body>
+    <div class="language-toggle">
+      <label class="switch">
+        <input type="checkbox" id="languageSwitch" />
+        <span class="slider"></span>
+      </label>
+      <span class="toggle-label">RU / EN</span>
+    </div>
+    <header class="header" id="header">
+      <div class="containerName">Прогноз погоды</div>
+      <form class="search" id="search">
+        <input
+          type="text"
+          id="searchBar"
+          class="searchBar"
+          placeholder="введите город"
+        />
+        <button class="btn">показать</button>
+      </form>
+    </header>
+
+    <div class="swiper-container">
+      <div class="swiper-wrapper"></div>
+    </div>
+    <div class="containerRemove">
+      <button class="remove" id="remove">удалить</button>
+    </div>
+
+    <div class="custom-prev">
+      <img src="icons/arrowRight.png" />
+    </div>
+    <div class="custom-next">
+      <img src="icons/arrowLeft.png" />
+    </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="/js/swiper.js"></script>
+    <script src="/js/weather.js"></script>
+    <script src="/js/language.js"></script>
+  </body>
+</html>
