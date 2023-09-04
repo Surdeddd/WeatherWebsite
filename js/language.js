@@ -13,27 +13,39 @@ languageSwitch.addEventListener("change", function () {
 });
 
 function updateLanguageTexts(language) {
+  currentLanguage = language;
   if (language === "en") {
     containerName.textContent = "Weather Forecast";
     searchBar.setAttribute("placeholder", "enter a city");
     showButton.textContent = "Show";
     removeButton.textContent = "Remove";
     switchLabel.textContent = "ENG / RUS";
-    document.querySelectorAll(".info").forEach((info) => {
-      if (info.id === "feelslike") {
-        info.textContent = `Feels like ${currentData.current.feelslike_c}°C`;
+    document.querySelectorAll("span").forEach((TemperatureMinMax) => {
+      if (TemperatureMinMax.id === "max") {
+        TemperatureMinMax.textContent = `Max:`;
+      } else if (TemperatureMinMax.id === "min") {
+        TemperatureMinMax.textContent = `Min:`;
+      }
+    });
+    document.querySelectorAll("span").forEach((info) => {
+      if (info.id === "feel") {
+        info.textContent = `Feels like: `;
       } else if (info.id === "averageChance") {
-        info.textContent = `Chance of precipitation: ${averageChance.toFixed(
-          1
-        )}%`;
+        info.textContent = `Chance of precipitation:`;
       } else if (info.id === "precip_mm") {
-        info.textContent = `Precipitation: ${currentData.current.precip_mm} mm`;
+        info.textContent = `Precipitation:`;
+      } else if (info.id === "precip_mmm") {
+        info.textContent = `mm`;
       } else if (info.id === "wind") {
-        info.textContent = `Wind speed: ${currentData.current.wind_kph} km/h`;
+        info.textContent = `Wind speed: `;
+      } else if (info.id === "windm") {
+        info.textContent = `km/h`;
       } else if (info.id === "Pressure") {
-        info.textContent = `Pressure: ${Pressuremb.toFixed(1)} mmHg`;
+        info.textContent = `Pressure:`;
+      } else if (info.id === "Pressuremm") {
+        info.textContent = `mmHg`;
       } else if (info.id === "humidity") {
-        info.textContent = `Humidity: ${currentData.current.humidity}%`;
+        info.textContent = `Humidity:`;
       }
     });
   } else if (language === "ru") {
@@ -42,19 +54,32 @@ function updateLanguageTexts(language) {
     showButton.textContent = "показать";
     removeButton.textContent = "удалить";
     switchLabel.textContent = "RUS / ENG";
-    document.querySelectorAll(".info").forEach((info) => {
-      if (info.id === "feelslike") {
-        info.textContent = `Ощущается как ${currentData.current.feelslike_c}°C`;
+    document.querySelectorAll("span").forEach((TemperatureMinMax) => {
+      if (TemperatureMinMax.id === "max") {
+        TemperatureMinMax.textContent = `Макс.:`;
+      } else if (TemperatureMinMax.id === "min") {
+        TemperatureMinMax.textContent = `Мин.:`;
+      }
+    });
+    document.querySelectorAll("span").forEach((info) => {
+      if (info.id === "feel") {
+        info.textContent = `Ощущается как:`;
       } else if (info.id === "averageChance") {
-        info.textContent = `Вероятность осадков: ${averageChance.toFixed(1)}%`;
+        info.textContent = `Вероятность осадков:`;
       } else if (info.id === "precip_mm") {
-        info.textContent = `Осадки: ${currentData.current.precip_mm} мм`;
+        info.textContent = `Осадки:`;
+      } else if (info.id === "precip_mmm") {
+        info.textContent = `мм`;
       } else if (info.id === "wind") {
-        info.textContent = `Скорость ветра: ${currentData.current.wind_kph} км/ч`;
+        info.textContent = `Скорость ветра:`;
+      } else if (info.id === "windm") {
+        info.textContent = `км/ч`;
       } else if (info.id === "Pressure") {
-        info.textContent = `Давление: ${Pressuremb.toFixed(1)} мм.рт.ст.`;
+        info.textContent = `Давление:`;
+      } else if (info.id === "Pressuremm") {
+        info.textContent = ` мм.рт.ст.`;
       } else if (info.id === "humidity") {
-        info.textContent = `Влажность воздуха: ${currentData.current.humidity}%`;
+        info.textContent = `Влажность воздуха:`;
       }
     });
   }

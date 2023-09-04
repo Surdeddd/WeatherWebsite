@@ -3,6 +3,10 @@
   padding: 0;
   background-color: #1b262c;
 }
+span {
+  margin: 0;
+  padding-left: 0;
+}
 .containerName {
   display: flex;
   align-items: center;

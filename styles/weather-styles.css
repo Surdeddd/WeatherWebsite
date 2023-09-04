@@ -85,6 +85,10 @@
   background-color: #24353e;
   margin-top: 5px;
 }
+.TemperatureMinMax span {
+  background-color: #24353e;
+  margin-top: 5px;
+}
 .info-container {
   color: #fff;
   background-color: #24353e;
@@ -93,15 +97,20 @@
   margin: 20px;
   padding: 10px;
 }
-
-.info {
+.info,
+.info span {
   color: #fff;
-  display: flex;
+  display: inline-flex;
   background-color: #24353e;
   font-family: "Roboto", sans-serif;
   padding-left: 20px;
   padding-bottom: 5px;
   font-size: 20px;
+}
+.info span#precip_mmm,
+.info span#Pressuremm,
+.info span#windm {
+  padding-left: 0px;
 }
 .containerWeatherHours {
   align-items: center;
@@ -158,8 +167,10 @@
   .card {
     width: 300px;
   }
-  .info {
-    font-size: 17px;
+  .info,
+  .info span {
+    font-size: 15px;
+    padding-left: 10px;
   }
   .Temperature {
     font-size: 55px;

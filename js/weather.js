@@ -10,13 +10,13 @@ form.onsubmit = function (e) {
   const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(
     city
   )}`;
-
   Promise.all([
     fetch(currentUrl).then((response) => response.json()),
     fetch(forecastUrl).then((response) => response.json()),
   ]).then(([currentData, forecastData]) => {
     console.log(currentData);
     console.log(forecastData);
+    updateLanguageTexts(currentLanguage);
     const chanceOfRainArray = forecastData.forecast.forecastday[0].hour.map(
       (hour) => hour.chance_of_rain
     );
@@ -26,46 +26,54 @@ form.onsubmit = function (e) {
     );
     const averageChance = totalChanceSum / chanceOfRainArray.length;
     let Pressuremb = currentData.current.pressure_mb * 0.75006375541921;
-    const htmlCode = `  
-      <div class="swiper-slide card">
-  <div class="location">
-    <div class="city">${currentData.location.name}</div>
-    <div class="country">${currentData.location.country}</div>
-  </div>
-  <div class="infoWeather">
-    <img src="${currentData.current.condition.icon}" />
-    <div class="Temperature">
-      ${currentData.current.temp_c}℃
-      <div class="TemperatureMinMax">
-        <div id="max">Макс.:${
-          forecastData.forecast.forecastday[0].day.maxtemp_c
-        }℃</div>
-        <div id="min">Мин.:${
-          forecastData.forecast.forecastday[0].day.mintemp_c
-        }℃</div>
+    const htmlCode = `
+    <div class="swiper-slide card">
+      <div class="location">
+        <div class="city">${currentData.location.name}</div>
+        <div class="country">${currentData.location.country}</div>
       </div>
-    </div>
-  </div>
-  <div class="info" id="feelslike">ощущается как ${
-    currentData.current.feelslike_c
-  }℃</div>
-  <div class="info-container">
-    <div class="info" id="averageChance">Вероятность осадков: ${averageChance.toFixed(
-      1
-    )}%</div>
-    <div class="info" id="precip_mm">Осадки: ${
-      currentData.current.precip_mm
-    } мм</div>
-    <div class="info" id="wind">Скорость ветра: ${
-      currentData.current.wind_kph
-    } км/ч</div>
-    <div class="info" id="Pressure">Давление: ${Pressuremb.toFixed(
-      1
-    )}мм.рт.ст.</div>
-    <div class="info" id="humidity">Влажность воздуха: ${
-      currentData.current.humidity
-    }%</div>
-  </div>
+      <div class="infoWeather">
+        <img src="${currentData.current.condition.icon}" />
+        <div class="Temperature">
+          ${currentData.current.temp_c}℃
+          <div class="TemperatureMinMax">
+            <div><span id="max">${
+              currentLanguage === "en" ? "Max:" : "Макс.:"
+            }</span>${forecastData.forecast.forecastday[0].day.maxtemp_c}℃</div>
+            <div><span id="min">${
+              currentLanguage === "en" ? "Min:" : "Мин.:"
+            }</span>${forecastData.forecast.forecastday[0].day.mintemp_c}℃</div>
+          </div>
+        </div>
+      </div>
+      <div class="info"><span id="feel">${
+        currentLanguage === "en" ? "Feels like:" : "Ощущается как:"
+      }</span> ${currentData.current.feelslike_c}℃</div>
+      <div class="info-container">
+        <div class="info"><span id="averageChance">${
+          currentLanguage === "en"
+            ? "Chance of precipitation:"
+            : "Вероятность осадков:"
+        }</span>${averageChance.toFixed(1)}%</div>
+        <div class="info"><span id="precip_mm">${
+          currentLanguage === "en" ? "Precipitation:" : "Осадки:"
+        }</span>${currentData.current.precip_mm}<span id="precip_mmm">${
+      currentLanguage === "en" ? "mm" : "мм"
+    }</span></div>
+        <div class="info"><span id="wind">${
+          currentLanguage === "en" ? "Wind speed:" : "Скорость ветра:"
+        }</span>${currentData.current.wind_kph}<span id="windm">${
+      currentLanguage === "en" ? "km/h" : "км/ч"
+    }</span></div>
+        <div class="info"><span id="Pressure">${
+          currentLanguage === "en" ? "Pressure:" : "Давление:"
+        }</span>${Pressuremb.toFixed(1)}<span id="Pressuremm">${
+      currentLanguage === "en" ? "mmHg" : "мм.рт.ст."
+    }</span></div>
+        <div class="info"><span id="humidity">${
+          currentLanguage === "en" ? "Humidity:" : "Влажность воздуха:"
+        }</span>${currentData.current.humidity}%</div>
+      </div>
   <div class="containerWeatherHours">
     <div class="weatherHours">
       <div>00:00</div>
@@ -303,4 +311,5 @@ removeButton.addEventListener("click", () => {
   }
 });
 updateStyles();
+
 window.addEventListener("resize", updateStyles);
